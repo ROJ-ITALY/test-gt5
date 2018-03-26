@@ -23,6 +23,9 @@ class Test_datetime(Test_basic):
 		except Test_error as e:		
 			sys.exit(-1)
 
+	def set_ip_address(self, if_name):
+		return subprocess.run(['udhcpc', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+
 	def ntp_client(self):
 		if subprocess.run(['ntpd', '-n', '-q', '-p', self.peer], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
 			raise Test_error(self, 'NTP_CLIENT_ERROR')
@@ -50,6 +53,10 @@ try:
 
 	t.message('Read hardware clock')
 	t.hc_to_sys()
+
+	t.message('Set IP address via dhcp')
+	if not t.set_ip_address('eth0'):
+		raise Test_error(t, 'NO_IP_ADDR')
 
 	t.message('NTP client from %s' % t.peer)
 	t.ntp_client()

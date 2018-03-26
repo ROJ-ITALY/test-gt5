@@ -14,7 +14,7 @@ class Test_ethernet(Test_basic):
 		Test_basic.__init__(self, 'ethernet')
 		self.err_dict['IF_NOT_FOUND'] = 'Interface \'%s\' not found'
 		self.err_dict['PING_FAILED'] = 'Ping failed'
-
+		
 	def initialize(self):
 		Test_basic.initialize(self)
 
@@ -37,6 +37,9 @@ class Test_ethernet(Test_basic):
 		ip_address = self.simple_re(ret.stdout.decode('utf-8'), '.*inet ([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*)')
 		return ip_address
 
+	def set_ip_address(self, if_name):
+		return subprocess.run(['udhcpc', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+
 	def ping(self):
 		if subprocess.run(['ping', self.target, '-q', '-c', '3'], stdout=subprocess.DEVNULL).returncode != 0:
 			raise Test_error(self, 'PING_FAILED')
@@ -57,6 +60,10 @@ try:
 	t.message('Check interface \'eth0\'')
 	if not t.check_interface('eth0'):
 		raise Test_error(t, 'IF_NOT_FOUND', 'eth0')
+
+	t.message('Set IP address via dhcp')
+	if not t.set_ip_address('eth0'):
+		raise Test_error(t, 'NO_IP_ADDR')
 
 	t.message('Get IP address \'eth0\'')
 	ip_address = t.get_ip_address('eth0')

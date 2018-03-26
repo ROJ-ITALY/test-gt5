@@ -94,7 +94,8 @@ class Test_basic:
 			'NON_ROOT': 'Non root', 
 			'DEV_NOT_FOUND': 'Device \'%s\' not found',
 			'RE_NOT_MATCH': 'Regular expression not match in string \'%s\'',
-			'MISSING_VERSION': 'Missing version file'
+			'MISSING_VERSION': 'Missing version file',
+			'NO_IP_ADDR': 'IP address not acquired from DHCP server'
 		}
 		self.COLOR_SUCCESS = '\033[92m'
 		self.COLOR_INFO = '\033[96m'
