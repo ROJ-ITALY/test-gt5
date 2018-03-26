@@ -1,0 +1,23 @@
+{
+	"verbosity": 2,
+	"colorize": "yes",
+	"saveinf": "yes",
+	"savelog": "no",
+	"quiet": "yes",
+
+	"datetime":
+	{
+		"peer": "192.168.1.184"
+	},
+
+	"ethernet":
+	{
+		"target": "192.168.1.1"
+	},
+
+	"usb":
+	{
+		"labela": "A",
+		"labelb": "B"
+	}
+}
