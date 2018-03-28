@@ -7,7 +7,7 @@ import time
 import argparse
 import tempfile
 
-test_list = ['usb', 'ethernet', 'datetime']
+test_list = ['usb', 'ethernet', 'datetime', 'can']
 
 ###############################################################################
 #	class Scheduler
