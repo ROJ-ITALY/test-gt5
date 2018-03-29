@@ -38,7 +38,7 @@ class Test_ethernet(Test_basic):
 		return ip_address
 
 	def set_ip_address(self, if_name):
-		return subprocess.run(['udhcpc', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+		return subprocess.run(['udhcpc', '-n', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
 
 	def ping(self):
 		if subprocess.run(['ping', self.target, '-q', '-c', '3'], stdout=subprocess.DEVNULL).returncode != 0:

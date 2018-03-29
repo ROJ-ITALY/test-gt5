@@ -34,6 +34,9 @@ class Test_can(Test_basic):
 		except Test_error as e:
 			sys.exit(-1)
 
+	def stop_application(self):
+		subprocess.run(['systemctl', 'stop', 'gt5'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 	def tx(self, a_id, a_msg):
 		try:
 			can_pkt = struct.pack('<IB3x8s', a_id, len(a_msg), a_msg)
@@ -81,6 +84,8 @@ class Test_can(Test_basic):
 ###############################################################################
 try:
 	t = Test_can()
+	
+	t.stop_application()
 
 	parser = argparse.ArgumentParser(description='Test Can')
 	t.add_common_arguments(parser)

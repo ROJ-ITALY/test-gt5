@@ -24,7 +24,7 @@ class Test_datetime(Test_basic):
 			sys.exit(-1)
 
 	def set_ip_address(self, if_name):
-		return subprocess.run(['udhcpc', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
+		return subprocess.run(['udhcpc', '-n', '-i', if_name], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0
 
 	def ntp_client(self):
 		if subprocess.run(['ntpd', '-n', '-q', '-p', self.peer], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
